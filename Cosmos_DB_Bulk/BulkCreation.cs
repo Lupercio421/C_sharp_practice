@@ -20,7 +20,7 @@ namespace CosmosDBBulk
                 // Prepare items for insertion
                 Console.WriteLine($"Preparing {Program.AmountToInsert} items to insert...");
                 // <Operations>
-                IReadOnlyCollection<Item> itemsToInsert = GetItemsToInsert();
+                IReadOnlyCollection<Item_poco> itemsToInsert = GetItemsToInsert();
                 // </Operations>
 
                 // Create the list of Tasks
@@ -29,7 +29,7 @@ namespace CosmosDBBulk
                 // <ConcurrentTasks>
                 Container container = database.GetContainer(Program.ContainerName);
                 List<Task> tasks = new List<Task>(Program.AmountToInsert);
-                foreach (Item item in itemsToInsert)
+                foreach (Item_poco item in itemsToInsert)
                 {
                     tasks.Add(container.CreateItemAsync(item, new PartitionKey(item.partitionKey))
                         .ContinueWith(itemResponse =>
@@ -68,9 +68,9 @@ namespace CosmosDBBulk
 
         }
         
-        private static IReadOnlyCollection<Item> GetItemsToInsert()
+        private static IReadOnlyCollection<Item_poco> GetItemsToInsert()
         {
-            return new Bogus.Faker<Item>()
+            return new Bogus.Faker<Item_poco>()
                 .StrictMode(true)
                 //Generate item
                 .RuleFor(o => o.id, f => Guid.NewGuid().ToString()) //id
