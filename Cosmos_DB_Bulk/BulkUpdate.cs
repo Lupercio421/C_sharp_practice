@@ -1,4 +1,6 @@
-﻿using ItemDetail;
+﻿//https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/using-async-for-file-access
+//https://h-savran.blogspot.com/2019/12/using-bulk-operations-of-azure-cosmos.html
+using ItemDetail;
 using Microsoft.Azure.Cosmos;
 using System;
 using System.Collections.Generic;
