@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItemDetail
 {
-    public class Item
+    public class Item_poco
     {
         public string id { get; set; }
         public string partitionKey { get; set; }
