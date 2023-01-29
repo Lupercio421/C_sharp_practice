@@ -13,72 +13,63 @@ using static Program;
 
 namespace CosmosMassUpdate
 {
-    public class BulkItemPatch
+    public static class BulkItemPatch
     {
-        public static async Task<bool> BulkTransactionUpdate(List<itempoco> item_list)
+        public static async Task BulkTransactionUpdate()
         {
-            await LoadItemsToUpdate();
+            //await LoadItemsToUpdate();
+            Stopwatch watch = Stopwatch.StartNew();
+            var options = new CosmosClientOptions() { AllowBulkExecution = true };
+            var cosmosClient = new CosmosClient(Program.EndpointUrl, Program.AuthorizationKey, options);
+            Database database = cosmosClient.GetDatabase(Program.DatabaseName);
+            Microsoft.Azure.Cosmos.Container container = database.GetContainer(Program.ContainerName);
             try
             {
-                var options = new CosmosClientOptions() { AllowBulkExecution = true };
-                var cosmosClient = new CosmosClient(Program.EndpointUrl, Program.AuthorizationKey, options);
-                var container = cosmosClient.GetContainer("bulk-tutorial", "Posts");
-                //posts.ForEach(t => t.Tags = "Update tags");
-                Stopwatch watch = Stopwatch.StartNew();
-                List<Task> concurrentTasks = new List<Task>();
-                foreach (itempoco itemtoUpdate in item_list)
+                //var cmd = "select * from c where c.statuscode = @sc";
+                QueryDefinition query = new QueryDefinition("select * from c where c.statuscode = @sc")
+                    .WithParameter("@sc", "3");
+                var queryResultSetIterator = container.GetItemQueryIterator<Item_poco>(query);
+                List<Item_poco> items_list = new List<Item_poco>();
+                try
                 {
-                    //tasks.Add(container.CreateItemAsync(item, new PartitionKey(item.partitionKey)
-                    var tsk = container.PatchItemAsync<itempoco>(
+                    //changed to if, instead of while
+                    while (queryResultSetIterator.HasMoreResults)
+                    {
+                        FeedResponse<Item_poco> currentResultSet = await queryResultSetIterator.ReadNextAsync();
+                        foreach (Item_poco current in currentResultSet)
+                        {
+                            items_list.Add(current);
+                        }
+                    }
+                    Console.WriteLine("Number of Items : " + items_list.Count);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message.ToString());
+                    //return null;
+                }
+                //Prepare items for insertion
+                Console.WriteLine("Preparing items to update");
+                List<Task> concurrentTasks = new List<Task>();
+                foreach (Item_poco itemtoUpdate in items_list)
+                {
+                    var tsk = container.PatchItemAsync<Item_poco>(
                         id: itemtoUpdate.id,
                         partitionKey: new PartitionKey(itemtoUpdate.partitionKey),
-                        patchOperations: new[] { PatchOperation.Replace("/statuscode", "4")});
+                        patchOperations: new[] { PatchOperation.Replace("/statuscode", "4") });
                     concurrentTasks.Add(tsk);
                 }
                 await Task.WhenAll(concurrentTasks);
                 watch.Stop();
                 TimeSpan ts = watch.Elapsed;
                 Console.WriteLine($"The time it took to execute this bulk patch: {ts}");
-                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
-                return false;
             }
 
         }
-        public static async Task<List<itempoco>> LoadItemsToUpdate()
-        {
-            CosmosClient cosmosClient = new CosmosClient(Program.EndpointUrl, Program.AuthorizationKey, new CosmosClientOptions() { AllowBulkExecution = true });
-            Database database = cosmosClient.GetDatabase(Program.DatabaseName);
-            Microsoft.Azure.Cosmos.Container container = database.GetContainer(Program.ContainerName);
-            var cmd = "select * from c where c.statuscode = \"3\"";
-            QueryDefinition query = new QueryDefinition(cmd);
-            var queryResultSetIterator = container.GetItemQueryIterator<itempoco>(query);
-
-            List<Program.itempoco> items_list = new List<Program.itempoco>();
-            try
-            {
-                while (queryResultSetIterator.HasMoreResults)
-                {
-                    FeedResponse<itempoco> currentResultSet = await queryResultSetIterator.ReadNextAsync();
-                    foreach (itempoco current in currentResultSet)
-                    {
-                        items_list.Add(current);
-                    }
-                }
-                Console.WriteLine("Number of Items : " + items_list.Count);
-                return items_list;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-                return null;
-            }
-
-        }
-
 
     }
 }
