@@ -67,7 +67,7 @@ namespace CosmosDBBulk
             }
 
         }
-        
+
         private static IReadOnlyCollection<Item_poco> GetItemsToInsert()
         {
             return new Bogus.Faker<Item_poco>()
@@ -75,8 +75,13 @@ namespace CosmosDBBulk
                 //Generate item
                 .RuleFor(o => o.id, f => Guid.NewGuid().ToString()) //id
                 .RuleFor(o => o.username, f => f.Internet.UserName())
-                .RuleFor(o => o.partitionKey, (f, o) => o.id) //partitionkey
-                .RuleFor(o => o.statuscode, f => f.Random.Int(1, 2).ToString())
+                .RuleFor(o => o.partitionKey, f => Guid.NewGuid().ToString()) //id
+                .RuleFor(o => o.vehicle_manufacturer, f => f.Vehicle.Manufacturer())
+                .RuleFor(o => o.vehicle_model, f => f.Vehicle.Model())
+                .RuleFor(o => o.company, f => f.Company.CompanyName())
+                .RuleFor(o => o.hashids, f => f.Hashids.ToString())
+                .RuleFor(o => o.statuscode, f => f.Random.Int(min : 1, max: 3).ToString())
+                //.RuleFor(o => o.partitionKey, (f, o) => o.id) //partitionkey
                 .Generate(Program.AmountToInsert);
         }
 
