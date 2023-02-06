@@ -12,6 +12,10 @@ namespace ItemDetail
         public string partitionKey { get; set; }
         public string username { get; set; }
         public string statuscode { get; set; }
+        public string? company { get; set; }
+        public string? vehicle_manufacturer { get; set; }
+        public string? vehicle_model { get; set; }
+        public string? hashids { get; set; }
 
     }
 }
