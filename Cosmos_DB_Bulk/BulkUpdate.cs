@@ -27,7 +27,7 @@ namespace CosmosMassUpdate
             {
                 //var cmd = "select * from c where c.statuscode = @sc";
                 QueryDefinition query = new QueryDefinition("select * from c where c.statuscode = @sc")
-                    .WithParameter("@sc", "3");
+                    .WithParameter("@sc", "1");
                 var queryResultSetIterator = container.GetItemQueryIterator<Item_poco>(query);
                 List<Item_poco> items_list = new List<Item_poco>();
                 try
@@ -56,7 +56,7 @@ namespace CosmosMassUpdate
                     var tsk = container.PatchItemAsync<Item_poco>(
                         id: itemtoUpdate.id,
                         partitionKey: new PartitionKey(itemtoUpdate.partitionKey),
-                        patchOperations: new[] { PatchOperation.Replace("/statuscode", "4") });
+                        patchOperations: new[] { PatchOperation.Replace("/statuscode", "2") });
                     concurrentTasks.Add(tsk);
                 }
                 await Task.WhenAll(concurrentTasks);
