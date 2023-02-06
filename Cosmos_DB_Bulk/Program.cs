@@ -15,8 +15,6 @@ using Bogus.DataSets;
 
 public class Program
 {
-    public const string EndpointUrl = "https://05e7fe8c-0ee0-4-231-b9ee.documents.azure.com:443/";
-    public const string AuthorizationKey = "MzgVdSBTOVsffoRc6ovw81FEsAwhpZmKc0DgiLlkwqsS9bJyQpPguqnC46mmA5bzS3yyspy4Q995ACDblpoKXQ==";
     public const string DatabaseName = "bulk-tutorial";
     public const string ContainerName = "items";
     public const int AmountToInsert = 20;
