@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace ItemDetail
 {
     public class Item_poco
     {
-        public string id { get; set; }
+        [JsonProperty("id")]
+        public string EventID { get; set; }
         public string partitionKey { get; set; }
         public string username { get; set; }
         public string statuscode { get; set; }
@@ -16,6 +18,7 @@ namespace ItemDetail
         public string? vehicle_manufacturer { get; set; }
         public string? vehicle_model { get; set; }
         public string? hashids { get; set; }
+        public string? MID { get; set; }
 
     }
 }

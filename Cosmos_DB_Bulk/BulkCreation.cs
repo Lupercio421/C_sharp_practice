@@ -73,7 +73,7 @@ namespace CosmosDBBulk
             return new Bogus.Faker<Item_poco>()
                 .StrictMode(true)
                 //Generate item
-                .RuleFor(o => o.id, f => Guid.NewGuid().ToString()) //id
+                .RuleFor(o => o.EventID, f => Guid.NewGuid().ToString()) //id
                 .RuleFor(o => o.username, f => f.Internet.UserName())
                 .RuleFor(o => o.partitionKey, f => Guid.NewGuid().ToString()) //id
                 .RuleFor(o => o.vehicle_manufacturer, f => f.Vehicle.Manufacturer())
