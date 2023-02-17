@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Inheritance_Lesson;
 using Inheritance_Shape;
+using CSharpInterface;
 
 namespace MainProgram
 {
@@ -30,17 +31,31 @@ namespace MainProgram
         //    labrador.eat();
         //}
 
-        static void Main(string[] args)
+        //static void Main(string[] args)
+        //{
+
+        //    Square s1 = new Square();
+        //    s1.calculateArea();
+        //    s1.calculatePerimeter(s1.length, s1.sides);
+
+
+        //    Rectangle t1 = new Rectangle();
+        //    t1.calculateArea();
+        //    t1.calculatePerimeter(t1.length, t1.sides);
+        //}
+        //static void Main(string[] args) 
+        //{
+        //    CSharpInterface.Rectangle r1 = new CSharpInterface.Rectangle();
+        //    r1.calculateArea(100,200);
+        //    r1.getColor();
+        //}
+        static void Main(string[] args) 
         {
+            CSharpInterface.Rectangle r1 = new CSharpInterface.Rectangle();
+            r1.calculateArea();
 
-            Square s1 = new Square();
+            CSharpInterface.Square s1 = new CSharpInterface.Square();
             s1.calculateArea();
-            s1.calculatePerimeter(s1.length, s1.sides);
-
-
-            Rectangle t1 = new Rectangle();
-            t1.calculateArea();
-            t1.calculatePerimeter(t1.length, t1.sides);
         }
     }
 }
