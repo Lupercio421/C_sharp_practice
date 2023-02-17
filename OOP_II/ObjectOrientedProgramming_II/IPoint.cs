@@ -33,11 +33,11 @@ namespace ObjectOrientedProgramming_II
         {
             Console.WriteLine("x={0}, y = {1}", p.X, p.Y);
         }
-        static void Main()
-        {
-            IPoint p = new Point(2,3);
-            Console.Write("My Point: ");
-            PrintPoint(p);
-        }
+        //static void 
+        //{
+        //    IPoint p = new Point(2,3);
+        //    Console.Write("My Point: ");
+        //    PrintPoint(p);
+        //}
     }
 }
