@@ -16,12 +16,12 @@ namespace ObjectOrientedProgramming_II
         {
             Console.WriteLine("How does this work?");
         }
-        static void Main()
-        {
-            //Declare an interface instance.
-            ISampleInterface obj = new ImplementationClass();
-            //Call the member
-            obj.SampleMethod();
-        }
+        //
+        //{
+        //    //Declare an interface instance.
+        //    ISampleInterface obj = new ImplementationClass();
+        //    //Call the member
+        //    obj.SampleMethod();
+        //}
     }
 }
