@@ -1,4 +1,5 @@
 ﻿using GoFDesign;
+using static GoFDesign.ThirdPartyBillingSystem;
 
 class Program
 {
@@ -17,30 +18,41 @@ class Program
     //    shape = new Triangle();
     //    Console.WriteLine(shape.GetShape());
     //}
+    #region //ProtoTypeDesign
+    //static void Main(string[] args)
+    //{
+    //    Developer dev = new Developer();
+    //    dev.Name = "Raul";
+    //    dev.Role = "Team Leader";
+    //    dev.PreferredLanguage = "Spanish"; ;
+
+    //    Developer devCopy = (Developer) dev.Clone();
+    //    devCopy.Name = "Victor"; //Do not mention Role and PreferredLanguage, it will copy above
+    //    Console.WriteLine(dev.GetDetails());
+    //    Console.WriteLine(devCopy.GetDetails());
+
+    //    Typist typist = new Typist();
+    //    typist.Name = "Monu";
+    //    typist.Role = "Typist";
+    //    typist.WordsPerMinute = 120;
+
+    //    Typist typistCopy = (Typist)typist.Clone();
+    //    typistCopy.Name = "Sahil";
+    //    typistCopy.WordsPerMinute = 115;//Not mention Role, it will copy above
+
+    //    Console.WriteLine(typist.GetDetails());
+    //    Console.WriteLine(typistCopy.GetDetails());
+
+    //    Console.ReadKey();
+    //}
+    #endregion
+    #region Adapter Design Demo
     static void Main(string[] args)
     {
-        Developer dev = new Developer();
-        dev.Name = "Raul";
-        dev.Role = "Team Leader";
-        dev.PreferredLanguage = "Spanish"; ;
-
-        Developer devCopy = (Developer) dev.Clone();
-        devCopy.Name = "Victor"; //Do not mention Role and PreferredLanguage, it will copy above
-        Console.WriteLine(dev.GetDetails());
-        Console.WriteLine(devCopy.GetDetails());
-
-        Typist typist = new Typist();
-        typist.Name = "Monu";
-        typist.Role = "Typist";
-        typist.WordsPerMinute = 120;
-
-        Typist typistCopy = (Typist)typist.Clone();
-        typistCopy.Name = "Sahil";
-        typistCopy.WordsPerMinute = 115;//Not mention Role, it will copy above
-
-        Console.WriteLine(typist.GetDetails());
-        Console.WriteLine(typistCopy.GetDetails());
-
+        ITarget ITarget = new EmployeeAdapter();
+        ThirdPartyBillingSystem client = new ThirdPartyBillingSystem(ITarget);
+        client.ShowEmployeeList();
         Console.ReadKey();
     }
+    #endregion
 }
