@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos_DB_Bulk", "Cosmos_DB_Bulk.csproj", "{8C8E9EC8-5FA3-48D4-A9FF-37196B0A9C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmos_DB_Bulk", "Cosmos_DB_Bulk.csproj", "{8C8E9EC8-5FA3-48D4-A9FF-37196B0A9C26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions", "..\AzureFunctionAttempts\AzureFunctions\AzureFunctions.csproj", "{98AE9DF2-97C9-40C4-AF87-0D4CAC63AA35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8C8E9EC8-5FA3-48D4-A9FF-37196B0A9C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C8E9EC8-5FA3-48D4-A9FF-37196B0A9C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C8E9EC8-5FA3-48D4-A9FF-37196B0A9C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98AE9DF2-97C9-40C4-AF87-0D4CAC63AA35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98AE9DF2-97C9-40C4-AF87-0D4CAC63AA35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98AE9DF2-97C9-40C4-AF87-0D4CAC63AA35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98AE9DF2-97C9-40C4-AF87-0D4CAC63AA35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

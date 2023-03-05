@@ -1,4 +1,4 @@
-﻿using ItemDetail;
+﻿using Cosmos_DB_Bulk_ItemDetail;
 using Microsoft.Azure.Cosmos;
 using System;
 using System.Collections.Generic;
@@ -19,12 +19,12 @@ namespace Cosmos_DB_Bulk
 
             Console.WriteLine("\n1.6 - Patching a item using its Id");
 
-            ItemResponse<Item_poco> response = await container.PatchItemAsync<Item_poco>(
+            ItemResponse<Item_POCO> response = await container.PatchItemAsync<Item_POCO>(
                 id: "7864afb5-14a0-4549-a8eb-dcc40e06b3b7",
                 partitionKey: new PartitionKey("7864afb5-14a0-4549-a8eb-dcc40e06b3b7"),
                 patchOperations: new[] { PatchOperation.Replace("/username", "Danny") });
 
-            Item_poco updatedItem = response.Resource;
+            Item_POCO updatedItem = response.Resource;
             Console.WriteLine($"Username of updated item: {updatedItem.username}");
         }
     }

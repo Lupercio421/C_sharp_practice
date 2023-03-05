@@ -1,11 +1,6 @@
-using ItemDetail;
+using Cosmos_DB_Bulk_ItemDetail;
 using Microsoft.Azure.Cosmos;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CosmosDBBulk
 {
@@ -13,6 +8,7 @@ namespace CosmosDBBulk
     {
         public static async Task BulkTransactionCreation()
         {
+            
             CosmosClient cosmosClient = new CosmosClient(Program.EndpointUrl, Program.AuthorizationKey, new CosmosClientOptions() { AllowBulkExecution = true });
             Database database = cosmosClient.GetDatabase(Program.DatabaseName);
             try
@@ -20,7 +16,7 @@ namespace CosmosDBBulk
                 // Prepare items for insertion
                 Console.WriteLine($"Preparing {Program.AmountToInsert} items to insert...");
                 // <Operations>
-                IReadOnlyCollection<Item_poco> itemsToInsert = GetItemsToInsert();
+                IReadOnlyCollection<Item_POCO> itemsToInsert = GetItemsToInsert();
                 // </Operations>
 
                 // Create the list of Tasks
@@ -29,15 +25,15 @@ namespace CosmosDBBulk
                 // <ConcurrentTasks>
                 Container container = database.GetContainer(Program.ContainerName);
                 List<Task> tasks = new List<Task>(Program.AmountToInsert);
-                foreach (Item_poco item in itemsToInsert)
+                foreach (var item in itemsToInsert)
                 {
-                    tasks.Add(container.CreateItemAsync(item, new PartitionKey(item.partitionKey))
+                    tasks.Add(container.CreateItemAsync<Item_POCO>(item, new PartitionKey(item.partitionKey))
                         .ContinueWith(itemResponse =>
                         {
                             if (!itemResponse.IsCompletedSuccessfully)
                             {
                                 AggregateException innerExceptions = itemResponse.Exception.Flatten();
-                                if (innerExceptions.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
+                                 if (innerExceptions.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
                                 {
                                     Console.WriteLine($"Received {cosmosException.StatusCode} ({cosmosException.Message}).");
                                 }
@@ -68,9 +64,9 @@ namespace CosmosDBBulk
 
         }
 
-        private static IReadOnlyCollection<Item_poco> GetItemsToInsert()
+        private static IReadOnlyCollection<Item_POCO> GetItemsToInsert()
         {
-            return new Bogus.Faker<Item_poco>()
+            return new Bogus.Faker<Item_POCO>()
                 .StrictMode(true)
                 //Generate item
                 .RuleFor(o => o.EventID, f => Guid.NewGuid().ToString()) //id
@@ -79,9 +75,7 @@ namespace CosmosDBBulk
                 .RuleFor(o => o.vehicle_manufacturer, f => f.Vehicle.Manufacturer())
                 .RuleFor(o => o.vehicle_model, f => f.Vehicle.Model())
                 .RuleFor(o => o.company, f => f.Company.CompanyName())
-                .RuleFor(o => o.hashids, f => f.Hashids.ToString())
-                .RuleFor(o => o.statuscode, f => f.Random.Int(min : 1, max: 3).ToString())
-                //.RuleFor(o => o.partitionKey, (f, o) => o.id) //partitionkey
+                .RuleFor(o => o.statuscode, f => f.Random.Int(min : 1, max: 5).ToString())
                 .Generate(Program.AmountToInsert);
         }
 

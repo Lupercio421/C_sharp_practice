@@ -1,6 +1,6 @@
 ﻿//https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/using-async-for-file-access
 //https://h-savran.blogspot.com/2019/12/using-bulk-operations-of-azure-cosmos.html
-using ItemDetail;
+using Cosmos_DB_Bulk_ItemDetail;
 using Microsoft.Azure.Cosmos;
 using System;
 using System.Collections.Generic;
@@ -28,15 +28,15 @@ namespace CosmosMassUpdate
                 //var cmd = "select * from c where c.statuscode = @sc";
                 QueryDefinition query = new QueryDefinition("select * from c where c.statuscode = @sc")
                     .WithParameter("@sc", "1");
-                var queryResultSetIterator = container.GetItemQueryIterator<Item_poco>(query);
-                List<Item_poco> items_list = new List<Item_poco>();
+                var queryResultSetIterator = container.GetItemQueryIterator<Item_POCO>(query);
+                List<Item_POCO> items_list = new List<Item_POCO>();
                 try
                 {
                     //changed to if, instead of while
                     while (queryResultSetIterator.HasMoreResults)
                     {
-                        FeedResponse<Item_poco> currentResultSet = await queryResultSetIterator.ReadNextAsync();
-                        foreach (Item_poco current in currentResultSet)
+                        FeedResponse<Item_POCO> currentResultSet = await queryResultSetIterator.ReadNextAsync();
+                        foreach (Item_POCO current in currentResultSet)
                         {
                             items_list.Add(current);
                         }
@@ -51,10 +51,10 @@ namespace CosmosMassUpdate
                 //Prepare items for insertion
                 Console.WriteLine("Preparing items to update");
                 List<Task> concurrentTasks = new List<Task>();
-                foreach (Item_poco itemtoUpdate in items_list)
+                foreach (Item_POCO itemtoUpdate in items_list)
                 {
-                    var tsk = container.PatchItemAsync<Item_poco>(
-                        id: itemtoUpdate.id,
+                    var tsk = container.PatchItemAsync<Item_POCO>(
+                        id: itemtoUpdate.EventID,
                         partitionKey: new PartitionKey(itemtoUpdate.partitionKey),
                         patchOperations: new[] { PatchOperation.Replace("/statuscode", "2") });
                     concurrentTasks.Add(tsk);

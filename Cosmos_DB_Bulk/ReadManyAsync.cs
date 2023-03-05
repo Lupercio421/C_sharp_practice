@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ItemDetail;
+using Cosmos_DB_Bulk_ItemDetail;
 using Microsoft.Azure.Cosmos;
 
 namespace QueryWorkspace
@@ -17,14 +17,14 @@ namespace QueryWorkspace
             Microsoft.Azure.Cosmos.Container container = database.GetContainer(Program.ContainerName);
             QueryDefinition query = new QueryDefinition("select * from c where c.statuscode = @sc")
                 .WithParameter("@sc", "3");
-            var queryResultSetIterator = container.GetItemQueryIterator<Item_poco>(query);
-            List<Item_poco> items_list = new List<Item_poco>();
+            var queryResultSetIterator = container.GetItemQueryIterator<Item_POCO>(query);
+            List<Item_POCO> items_list = new List<Item_POCO>();
             try
             {
                 while (queryResultSetIterator.HasMoreResults)
                 {
-                    FeedResponse<Item_poco> currentResultSet = await queryResultSetIterator.ReadNextAsync();
-                    foreach (Item_poco current in currentResultSet)
+                    FeedResponse<Item_POCO> currentResultSet = await queryResultSetIterator.ReadNextAsync();
+                    foreach (Item_POCO current in currentResultSet)
                     {
                         items_list.Add(current);
                         //Console.WriteLine($"Item ID: {current.id} and status code: {current.statuscode}");

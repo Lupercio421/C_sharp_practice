@@ -9,23 +9,22 @@ using Cosmos_DB_Bulk;
 using CosmosDBBulk;
 using Microsoft.Azure.Cosmos;
 using CosmosMassUpdate;
-using ItemDetail;
 using QueryWorkspace;
 using Bogus.DataSets;
 
 public class Program
 {
-    public const string DatabaseName = "bulk-tutorial";
+    public const string DatabaseName = "bogus-data";
     public const string ContainerName = "items";
     public const int AmountToInsert = 2;
 
     static async Task Main()
     {
-        //await BulkCreation.BulkTransactionCreation();
+        await BulkCreation.BulkTransactionCreation();
         //await BulkItemPatch.BulkTransactionUpdate();
         //await BulkItemPatch.LoadItemsToUpdate();
         //await ReadMany.QueryManyItemsAsync();
-        await MIDField.MIDGenerator();
+        //await MIDField.MIDGenerator();
 
     }
     //public static void Main(string[] args)

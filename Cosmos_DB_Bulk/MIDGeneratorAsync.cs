@@ -8,7 +8,7 @@ namespace Cosmos_DB_Bulk
 {
     public class MIDField
     {
-        public static async Task<string> MIDGenerator()
+        public static async Task<string>  MIDGenerator()
         {
             Random ran = new Random();
             String b = "!@#$%^&*~abcdefghijklmnopqrstuvwxyz0123456789";
