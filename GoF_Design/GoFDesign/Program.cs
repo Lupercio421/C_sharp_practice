@@ -18,7 +18,7 @@ class Program
     //    shape = new Triangle();
     //    Console.WriteLine(shape.GetShape());
     //}
-    #region //ProtoTypeDesign
+    #region ProtoTypeDesign
     //static void Main(string[] args)
     //{
     //    Developer dev = new Developer();
@@ -47,11 +47,20 @@ class Program
     //}
     #endregion
     #region Adapter Design Demo
+    //static void Main(string[] args)
+    //{
+    //    ITarget ITarget = new EmployeeAdapter();
+    //    ThirdPartyBillingSystem client = new ThirdPartyBillingSystem(ITarget);
+    //    client.ShowEmployeeList();
+    //    Console.ReadKey();
+    //}
+    #endregion
+
+    #region Singleton Design
     static void Main(string[] args)
     {
-        ITarget ITarget = new EmployeeAdapter();
-        ThirdPartyBillingSystem client = new ThirdPartyBillingSystem(ITarget);
-        client.ShowEmployeeList();
+        Singleton.Instance.Show();
+        Singleton.Instance.Show();
         Console.ReadKey();
     }
     #endregion
