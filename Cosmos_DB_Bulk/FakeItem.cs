@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Azure.CosmosRepository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cosmos_DB_Bulk_ItemDetail
 {
-    internal class Item_POCO
+    internal class Item_POCO :Item
     {
         [JsonProperty("id")]
         public string? EventID { get; set; }
