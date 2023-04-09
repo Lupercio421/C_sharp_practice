@@ -2,10 +2,13 @@
 using Inheritance_Lesson;
 using Inheritance_Shape;
 using CSharpInterface;
+using ObjectOrientedProgramming_II;
+using Dog = ObjectOrientedProgramming_II.Dog;
 
 namespace MainProgram
 {
-    class Program
+    //class Program: Language
+    class Program : ObjectOrientedProgramming_II.Dog
     {
         //static void Main(string[] args) 
         //{
@@ -49,13 +52,33 @@ namespace MainProgram
         //    r1.calculateArea(100,200);
         //    r1.getColor();
         //}
-        static void Main(string[] args) 
-        {
-            CSharpInterface.Rectangle r1 = new CSharpInterface.Rectangle();
-            r1.calculateArea();
+        //static void Main(string[] args) 
+        //{
+        //    CSharpInterface.Rectangle r1 = new CSharpInterface.Rectangle();
+        //    r1.calculateArea();
 
-            CSharpInterface.Square s1 = new CSharpInterface.Square();
-            s1.calculateArea();
+        //    CSharpInterface.Square s1 = new CSharpInterface.Square();
+        //    s1.calculateArea();
+        //}
+
+        //static void Main(string[] args)
+        //{
+        //    //Program.display(); CS0120
+
+        //    Program obj = new Program();
+
+        //    // access method of an abstract class
+        //    obj.display();
+
+        //    Console.ReadLine();
+        //}
+
+        static void Main(string[] args)
+        {
+            Dog obj = new Dog();
+            obj.Name = "Dino";
+            Console.WriteLine("Name:" + obj.Name);
+
         }
     }
 }
