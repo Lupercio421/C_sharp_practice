@@ -1,4 +1,5 @@
 ﻿using GoFDesign;
+using GoFDesign.test;
 using static GoFDesign.ThirdPartyBillingSystem;
 
 class Program
@@ -57,11 +58,20 @@ class Program
     #endregion
 
     #region Singleton Design
-    static void Main(string[] args)
-    {
-        Singleton.Instance.Show();
-        Singleton.Instance.Show();
-        Console.ReadKey();
-    }
+    //static void Main(string[] args)
+    //{
+    //    Singleton.Instance.Show();
+    //    Singleton.Instance.Show();
+    //    Console.ReadKey();
+    //}
+    #endregion
+
+    #region Async Example
+    //static async Main()
+    //{
+    //    var asyncmethod = new AsyncLesson();
+
+    //    asyncmethod.GetUrlContentLengthAsync();
+    //}
     #endregion
 }
