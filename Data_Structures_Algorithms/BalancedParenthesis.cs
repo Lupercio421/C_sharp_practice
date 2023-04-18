@@ -8,7 +8,7 @@ namespace Data_Structures_Algorithms
 {
     public class BalancedParenthesis
     {
-        static Boolean areBracketsBalanced(char[] exp)
+        public static Boolean areBracketsBalanced(char[] exp)
         {
             //Declare an empty character stack
             Stack<char> st = new Stack<char>();
