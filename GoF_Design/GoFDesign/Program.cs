@@ -74,4 +74,14 @@ class Program
     //    asyncmethod.GetUrlContentLengthAsync();
     //}
     #endregion
+
+    #region Strategy Deisgn
+    static void Main()
+    {
+        StrategyClient client = new StrategyClient();
+        ConcreteStrategyA concreteStrategyA = new ConcreteStrategyA();
+        //client.CallAlgorithm();
+        concreteStrategyA.Algorithm();
+    }
+    #endregion
 }
