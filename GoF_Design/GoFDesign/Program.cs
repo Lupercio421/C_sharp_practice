@@ -76,12 +76,31 @@ class Program
     #endregion
 
     #region Strategy Deisgn
-    static void Main()
+    //static void Main()
+    //{
+    //    StrategyClient client = new StrategyClient();
+    //    ConcreteStrategyA concreteStrategyA = new ConcreteStrategyA();
+    //    //client.CallAlgorithm();
+    //    concreteStrategyA.Algorithm();
+    //}
+    #endregion
+
+    #region Builder Design
+    static void Main(string[] args)
     {
-        StrategyClient client = new StrategyClient();
-        ConcreteStrategyA concreteStrategyA = new ConcreteStrategyA();
-        //client.CallAlgorithm();
-        concreteStrategyA.Algorithm();
+        var vehicleCreator = new VehicleCreator(new HeroBuilder());
+
+        vehicleCreator.CreateVehicle();
+
+        var vehicle = vehicleCreator.GetVehicle();
+        vehicle.ShowInfo();
+        Console.WriteLine("---------------------------------------------");
+        vehicleCreator = new VehicleCreator(new HondaBuilder());
+        vehicleCreator.CreateVehicle();
+        vehicle = vehicleCreator.GetVehicle();
+        vehicle.ShowInfo();
+
+        Console.ReadKey();
     }
     #endregion
 }
