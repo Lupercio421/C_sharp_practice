@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoFDesign
+namespace GoFDesign.Builder_Pattern
 {
     //Builder Pattern falls under Creational Pattern. It is used to build a complex object using a step by step approach
     //It provides an interface for creating parts of a product
@@ -173,7 +173,7 @@ namespace GoFDesign
             Console.WriteLine("Body: {0}", Body);
             Console.WriteLine("Transmission: {0}", Transmission);
             Console.WriteLine("Accessories");
-            foreach(var accessory in Accessories)
+            foreach (var accessory in Accessories)
             {
                 Console.WriteLine("\t{0}", accessory);
             }
